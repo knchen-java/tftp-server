@@ -1,7 +1,6 @@
 package com.knchen.tftp.server;
 
 import com.knchen.tftp.server.store.TFTPStore;
-import com.knchen.tftp.server.store.TFTPTestStore;
 
 /**
  * tftp-server测试

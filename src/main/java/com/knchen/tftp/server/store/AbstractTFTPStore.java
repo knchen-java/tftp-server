@@ -41,9 +41,14 @@ public abstract class AbstractTFTPStore implements TFTPStore {
      * @return 请求类型枚举
      */
     private TFTPRequest request(int type) {
-        if (type == TFTPPacket.READ_REQUEST) return TFTPRequest.READ;
-        if (type == TFTPPacket.WRITE_REQUEST) return TFTPRequest.WRITE;
-        throw new TFTPPacketException("bad tftp packet, it's not a request packet, type=" + type);
+        switch (type) {
+            case TFTPPacket.READ_REQUEST:
+                return TFTPRequest.READ;
+            case TFTPPacket.WRITE_REQUEST:
+                return TFTPRequest.WRITE;
+            default:
+                throw new TFTPPacketException("bad tftp packet, it's not a request packet, type=" + type);
+        }
     }
 
     /**

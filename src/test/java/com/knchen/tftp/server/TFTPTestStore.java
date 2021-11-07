@@ -1,7 +1,7 @@
-package com.knchen.tftp.server.store;
+package com.knchen.tftp.server;
 
 import com.knchen.tftp.server.packet.TFTPErrorCode;
-import com.knchen.tftp.server.transfer.TFTPTransferException;
+import com.knchen.tftp.server.store.AbstractTFTPStore;
 import com.knchen.tftp.server.transfer.TFTPTransferMode;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
@@ -9,6 +9,7 @@ import io.netty.buffer.Unpooled;
 
 import java.io.*;
 import java.net.InetSocketAddress;
+import java.util.HashSet;
 
 /**
  * tftp 测试仓库
@@ -21,9 +22,16 @@ public class TFTPTestStore extends AbstractTFTPStore {
         super(mode);
     }
 
+    private HashSet<String> whitelist = new HashSet<>();
+
+    {
+        whitelist.add("127.0.0.1");
+    }
+
     @Override
     public TFTPErrorCode check0(InetSocketAddress remote, String fileName, TFTPRequest request) {
-        // todo 校验对端身份
+        // 校验对端身份
+        if (!whitelist.contains(remote.getHostName())) return TFTPErrorCode.ACCESS_VIOLATION;
 
         // 根据请求类型进行文件校验
         switch (request) {

@@ -36,7 +36,9 @@ public interface TFTPStore {
         }
     }
 
-    // 请求类型
+    /**
+     * 请求类型
+     */
     enum TFTPRequest {READ, WRITE}
 
     /**

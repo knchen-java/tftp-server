@@ -19,7 +19,6 @@ public class TFTPErrorHandler extends SimpleChannelInboundHandler<TFTPErrorPacke
 
     private static final Logger LOG = LoggerFactory.getLogger(TFTPErrorHandler.class);
 
-
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, TFTPErrorPacket tftpErrorPacket) throws Exception {
         LOG.warn(tftpErrorPacket.toString());
