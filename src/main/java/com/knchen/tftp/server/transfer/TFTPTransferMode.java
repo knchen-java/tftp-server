@@ -26,6 +26,6 @@ public enum TFTPTransferMode {
                 return mode;
             }
         }
-        throw new TFTPTransferException("unknown TFTP transfer mode, name=" + name);
+        throw new TFTPTransferException("unknown tftp transfer mode, name=" + name);
     }
 }

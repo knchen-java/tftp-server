@@ -36,7 +36,7 @@ public enum TFTPErrorCode {
     /**
      * 非法操作
      */
-    ILLEGAL_OPERATION(4, "illegal TFTP operation."),
+    ILLEGAL_OPERATION(4, "illegal tftp operation."),
 
     /**
      * 未知的传输id
@@ -76,6 +76,6 @@ public enum TFTPErrorCode {
                 return value;
             }
         }
-        throw new TFTPPacketException("unknown TFTP error code, code=" + code);
+        throw new TFTPPacketException("unknown tftp error code, code=" + code);
     }
 }

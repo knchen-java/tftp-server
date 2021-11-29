@@ -1,7 +1,6 @@
 package com.knchen.tftp.server.codec;
 
 import com.knchen.tftp.server.packet.TFTPPacket;
-import com.knchen.tftp.server.packet.TFTPPacketException;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.socket.DatagramPacket;

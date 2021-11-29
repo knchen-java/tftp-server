@@ -27,7 +27,7 @@ public abstract class AbstractTFTPStore implements TFTPStore {
     public TFTPErrorCode check(InetSocketAddress remote, String fileName, int type) {
         // 检查仓库的读写权限
         if (mode != TFTPStoreMode.READ_AND_WRITE && mode.getType() != type) {
-            LOG.warn("illegal TFTP operation, operation={}, fileName={}", type, fileName);
+            LOG.warn("illegal tftp operation, operation={}, fileName={}", type, fileName);
             return TFTPErrorCode.ILLEGAL_OPERATION;
         }
 
@@ -57,7 +57,7 @@ public abstract class AbstractTFTPStore implements TFTPStore {
      * @param remote   对端地址
      * @param fileName 文件名
      * @param request  请求类型
-     * @return 校验结果
+     * @return TFTPErrorCode.NORMAL 代表正常执行
      */
     public abstract TFTPErrorCode check0(InetSocketAddress remote, String fileName, TFTPRequest request);
 }

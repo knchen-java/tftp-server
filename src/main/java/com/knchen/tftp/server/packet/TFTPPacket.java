@@ -72,7 +72,7 @@ public abstract class TFTPPacket {
                 packet = new TFTPErrorPacket(datagramPacket);
                 break;
             default:
-                throw new TFTPPacketException("bad tftp packet, invalid TFTP operator code");
+                throw new TFTPPacketException("bad tftp packet, invalid tftp operator code");
         }
         return packet;
     }

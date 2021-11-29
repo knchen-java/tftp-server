@@ -63,6 +63,6 @@ public class TFTPErrorPacket extends TFTPPacket {
 
     @Override
     public String toString() {
-        return String.format("TFTP error packet, %s=>%s, code=%d, message=%s", sender, recipient, code.getCode(), message);
+        return String.format("tftp error packet, %s=>%s, code=%d, message=%s", sender, recipient, code.getCode(), message);
     }
 }
