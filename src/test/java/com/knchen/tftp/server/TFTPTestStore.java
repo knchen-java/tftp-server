@@ -25,6 +25,9 @@ public class TFTPTestStore extends AbstractTFTPStore {
 
     private HashSet<String> whitelist = new HashSet<>();
 
+    // 是否允许覆盖文件
+    private boolean overwrite = true;
+
     {
         whitelist.add("127.0.0.1");
     }
@@ -41,7 +44,7 @@ public class TFTPTestStore extends AbstractTFTPStore {
             case READ:
                 return new File(fileName).exists() ? TFTPErrorCode.NORMAL : TFTPErrorCode.FILE_NOT_FOUND;
             case WRITE:
-                return new File(fileName).exists() ? TFTPErrorCode.FILE_EXISTS : TFTPErrorCode.NORMAL;
+                return new File(fileName).exists() && !overwrite ? TFTPErrorCode.FILE_EXISTS : TFTPErrorCode.NORMAL;
             default:
                 return TFTPErrorCode.NORMAL;
         }
