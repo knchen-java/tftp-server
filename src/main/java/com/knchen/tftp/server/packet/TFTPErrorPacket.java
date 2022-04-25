@@ -1,11 +1,11 @@
 package com.knchen.tftp.server.packet;
 
+import java.net.InetSocketAddress;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.socket.DatagramPacket;
-
-import java.net.InetSocketAddress;
 
 /**
  * tftp 错误包
@@ -47,22 +47,18 @@ public class TFTPErrorPacket extends TFTPPacket {
         this.message = code.getMessage();
     }
 
-
     @Override
     public DatagramPacket encode() {
         byte[] msg = message.getBytes();
-        ByteBuf data = Unpooled.buffer(5 + msg.length)
-                .writeByte(0)
-                .writeByte(type)
-                .writeByte((byte) ((code.getCode() & 0xffff) >> 8))
-                .writeByte((byte) (code.getCode() & 0xff))
-                .writeBytes(msg)
-                .writeByte(0);
+        ByteBuf data = Unpooled.buffer(5 + msg.length).writeByte(0).writeByte(type)
+            .writeByte((byte)((code.getCode() & 0xffff) >> 8)).writeByte((byte)(code.getCode() & 0xff)).writeBytes(msg)
+            .writeByte(0);
         return new DatagramPacket(data, recipient);
     }
 
     @Override
     public String toString() {
-        return String.format("TFTP error packet, %s=>%s, code=%d, message=%s", sender, recipient, code.getCode(), message);
+        return String.format("TFTP error packet, %s=>%s, code=%d, message=%s", sender, recipient, code.getCode(),
+            message);
     }
 }

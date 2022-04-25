@@ -1,15 +1,16 @@
 package com.knchen.tftp.server;
 
-import com.knchen.tftp.server.packet.TFTPErrorCode;
-import com.knchen.tftp.server.store.AbstractTFTPStore;
-import com.knchen.tftp.server.transfer.TFTPTransferMode;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufUtil;
-import io.netty.buffer.Unpooled;
-
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.util.HashSet;
+
+import com.knchen.tftp.server.packet.TFTPErrorCode;
+import com.knchen.tftp.server.store.AbstractTFTPStore;
+import com.knchen.tftp.server.transfer.TFTPTransferMode;
+
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufUtil;
+import io.netty.buffer.Unpooled;
 
 /**
  * tftp 测试仓库
@@ -31,7 +32,9 @@ public class TFTPTestStore extends AbstractTFTPStore {
     @Override
     public TFTPErrorCode check0(InetSocketAddress remote, String fileName, TFTPRequest request) {
         // 校验对端身份
-        if (!whitelist.contains(remote.getHostName())) return TFTPErrorCode.ACCESS_VIOLATION;
+        if (!whitelist.contains(remote.getHostName())) {
+            return TFTPErrorCode.ACCESS_VIOLATION;
+        }
 
         // 根据请求类型进行文件校验
         switch (request) {
@@ -49,7 +52,7 @@ public class TFTPTestStore extends AbstractTFTPStore {
         try (OutputStream out = new FileOutputStream(fileName)) {
             out.write(ByteBufUtil.getBytes(data));
         } catch (Exception e) {
-            LOG.error("tftp-server fail to write file, fileName={}", fileName, e);
+            LOG.error("Tftp-server fail to write file, fileName={}", fileName, e);
         }
     }
 
@@ -61,7 +64,7 @@ public class TFTPTestStore extends AbstractTFTPStore {
             data.writeBytes(in, length);
             return data;
         } catch (Exception e) {
-            LOG.error("tftp-server fail to read file, fileName={}", fileName, e);
+            LOG.error("Tftp-server fail to read file, fileName={}", fileName, e);
         }
         return Unpooled.EMPTY_BUFFER;
     }

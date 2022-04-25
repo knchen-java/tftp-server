@@ -7,8 +7,7 @@ package com.knchen.tftp.server.transfer;
  * @date 2021/11/2 18:30
  */
 public class TFTPTransferException extends RuntimeException {
-    public TFTPTransferException() {
-    }
+    public TFTPTransferException() {}
 
     public TFTPTransferException(String message) {
         super(message);

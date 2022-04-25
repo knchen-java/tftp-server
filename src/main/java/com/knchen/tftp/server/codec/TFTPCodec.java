@@ -1,15 +1,16 @@
 package com.knchen.tftp.server.codec;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.knchen.tftp.server.packet.TFTPPacket;
-import com.knchen.tftp.server.packet.TFTPPacketException;
+
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.socket.DatagramPacket;
 import io.netty.handler.codec.MessageToMessageCodec;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 /**
  * tftp编解码器
@@ -24,17 +25,19 @@ public class TFTPCodec extends MessageToMessageCodec<DatagramPacket, TFTPPacket>
     private static final Logger LOG = LoggerFactory.getLogger(TFTPCodec.class);
 
     @Override
-    protected void encode(ChannelHandlerContext channelHandlerContext, TFTPPacket tftpPacket, List<Object> list) throws Exception {
+    protected void encode(ChannelHandlerContext channelHandlerContext, TFTPPacket tftpPacket, List<Object> list)
+        throws Exception {
         try {
             DatagramPacket datagramPacket = tftpPacket.encode();
             list.add(datagramPacket);
         } catch (Exception e) {
-            LOG.error("tftp-server caught an outbound exception", e);
+            LOG.error("Tftp-server caught an outbound exception", e);
         }
     }
 
     @Override
-    protected void decode(ChannelHandlerContext channelHandlerContext, DatagramPacket datagramPacket, List<Object> list) throws Exception {
+    protected void decode(ChannelHandlerContext channelHandlerContext, DatagramPacket datagramPacket, List<Object> list)
+        throws Exception {
         TFTPPacket tftpPacket = TFTPPacket.decode(datagramPacket);
         list.add(tftpPacket);
     }

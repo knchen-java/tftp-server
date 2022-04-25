@@ -1,11 +1,11 @@
 package com.knchen.tftp.server.packet;
 
+import java.net.InetSocketAddress;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.socket.DatagramPacket;
-
-import java.net.InetSocketAddress;
 
 /**
  * tftp 数据包
@@ -46,11 +46,8 @@ public class TFTPDataPacket extends TFTPPacket {
 
     @Override
     public DatagramPacket encode() {
-        ByteBuf header = Unpooled.buffer(4)
-                .writeByte(0)
-                .writeByte(type)
-                .writeByte((byte) ((blockNumber & 0xffff) >> 8))
-                .writeByte((byte) (blockNumber & 0xff));
+        ByteBuf header = Unpooled.buffer(4).writeByte(0).writeByte(type).writeByte((byte)((blockNumber & 0xffff) >> 8))
+            .writeByte((byte)(blockNumber & 0xff));
         ByteBuf body = Unpooled.wrappedBuffer(header, data.retain());
         return new DatagramPacket(body, recipient);
     }

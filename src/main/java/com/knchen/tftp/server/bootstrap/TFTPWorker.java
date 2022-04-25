@@ -1,10 +1,13 @@
 package com.knchen.tftp.server.bootstrap;
 
+import java.net.InetSocketAddress;
+
 import com.knchen.tftp.server.codec.TFTPCodec;
 import com.knchen.tftp.server.handler.*;
 import com.knchen.tftp.server.packet.TFTPErrorCode;
 import com.knchen.tftp.server.packet.TFTPRequestPacket;
 import com.knchen.tftp.server.store.TFTPStore;
+
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -13,8 +16,6 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioDatagramChannel;
 import io.netty.util.AttributeKey;
-
-import java.net.InetSocketAddress;
 
 /**
  * 处理 tftp 数据传输 data/ack 指令
@@ -41,13 +42,9 @@ public class TFTPWorker {
             @Override
             protected void initChannel(Channel channel) throws Exception {
                 channel.attr(TFTPStore.TFTP_DATA_STORE).set(store);
-                channel.pipeline()
-                        .addLast("codec", TFTPCodec.SINGLETON)
-                        .addLast("timeout", new TFTPTimeoutHandler())
-                        .addLast("data", TFTPDataHandler.SINGLETON)
-                        .addLast("ack", TFTPAckHandler.SINGLETON)
-                        .addLast("error", TFTPErrorHandler.SINGLETON)
-                        .addLast("exception", TFTPExceptionHandler.SINGLETON);
+                channel.pipeline().addLast("codec", TFTPCodec.SINGLETON).addLast("timeout", new TFTPTimeoutHandler())
+                    .addLast("data", TFTPDataHandler.SINGLETON).addLast("ack", TFTPAckHandler.SINGLETON)
+                    .addLast("error", TFTPErrorHandler.SINGLETON).addLast("exception", TFTPExceptionHandler.SINGLETON);
             }
         });
     }

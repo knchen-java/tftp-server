@@ -1,10 +1,11 @@
 package com.knchen.tftp.server.handler;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * tftp 统一异常处理
@@ -20,6 +21,6 @@ public class TFTPExceptionHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        LOG.error("tftp-server caught an inbound exception", cause);
+        LOG.error("Tftp-server caught an inbound exception", cause);
     }
 }

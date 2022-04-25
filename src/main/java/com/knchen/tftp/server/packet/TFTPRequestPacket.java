@@ -1,11 +1,12 @@
 package com.knchen.tftp.server.packet;
 
+import java.nio.charset.Charset;
+
 import com.knchen.tftp.server.transfer.TFTPTransferMode;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.socket.DatagramPacket;
-
-import java.nio.charset.Charset;
 
 /**
  * tftp 请求
@@ -37,7 +38,7 @@ public abstract class TFTPRequestPacket extends TFTPPacket {
         this.fileName = buf.toString(Charset.defaultCharset());
 
         if (index >= bytes.length) {
-            throw new TFTPPacketException("bad file name and mode format");
+            throw new TFTPPacketException("Bad file name and mode format");
         }
 
         // 解析传输模式

@@ -5,6 +5,7 @@ import com.knchen.tftp.server.handler.TFTPExceptionHandler;
 import com.knchen.tftp.server.handler.TFTPReadRequestHandler;
 import com.knchen.tftp.server.handler.TFTPWriteRequestHandler;
 import com.knchen.tftp.server.store.TFTPStore;
+
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
@@ -30,17 +31,15 @@ public class TFTPBoos {
         init();
     }
 
-
     private void init() {
         bootstrap.group(group).channel(NioDatagramChannel.class).handler(new ChannelInitializer<Channel>() {
             @Override
             protected void initChannel(Channel channel) throws Exception {
                 channel.attr(TFTPWorker.TFTP_WORKER).set(worker);
-                channel.pipeline()
-                        .addLast("codec", TFTPCodec.SINGLETON)
-                        .addLast("read", TFTPReadRequestHandler.SINGLETON)
-                        .addLast("write", TFTPWriteRequestHandler.SINGLETON)
-                        .addLast("exception", TFTPExceptionHandler.SINGLETON);
+                channel.pipeline().addLast("codec", TFTPCodec.SINGLETON)
+                    .addLast("read", TFTPReadRequestHandler.SINGLETON)
+                    .addLast("write", TFTPWriteRequestHandler.SINGLETON)
+                    .addLast("exception", TFTPExceptionHandler.SINGLETON);
             }
         });
     }

@@ -1,9 +1,9 @@
 package com.knchen.tftp.server.packet;
 
+import java.net.InetSocketAddress;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.socket.DatagramPacket;
-
-import java.net.InetSocketAddress;
 
 /**
  * tftp 报文
@@ -52,7 +52,7 @@ public abstract class TFTPPacket {
     public static TFTPPacket decode(DatagramPacket datagramPacket) {
         ByteBuf content = datagramPacket.content();
         if (content.readableBytes() < MIN_PACKET_SIZE) {
-            throw new TFTPPacketException("bad tftp packet, datagram data length is too short");
+            throw new TFTPPacketException("Bad tftp packet, datagram data length is too short");
         }
         TFTPPacket packet = null;
         switch (content.getByte(1)) {
@@ -72,7 +72,7 @@ public abstract class TFTPPacket {
                 packet = new TFTPErrorPacket(datagramPacket);
                 break;
             default:
-                throw new TFTPPacketException("bad tftp packet, invalid TFTP operator code");
+                throw new TFTPPacketException("Bad tftp packet, invalid TFTP operator code");
         }
         return packet;
     }

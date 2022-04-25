@@ -12,38 +12,41 @@ import com.knchen.tftp.server.store.TFTPStore;
 public class TFTPServer {
     private TFTPBoos boos;
 
-    // 0=初始化，1=运行中，-1=销毁
+    /**
+     * 0=初始化，1=运行中，-1=销毁
+     */
     private int status = 0;
 
     public TFTPServer(TFTPStore store) {
         this.boos = new TFTPBoos(store);
     }
 
-    public void start() {
+    /**
+     * 启动 tftp-server 默认69端口
+     */
+    public synchronized void start() {
         start(69);
     }
 
     /**
      * 启动 tftp-server
-     * 只能启动一次
      *
      * @param port port
      */
     public synchronized void start(int port) {
         if (status != 0) {
-            throw new IllegalStateException();
+            throw new IllegalStateException("Tftp-server state must be 0");
         }
         status = 1;
         boos.start(port);
     }
 
     /**
-     * 销毁 tftp-server
-     * 销毁后无法再次启动和销毁
+     * 销毁 tftp-server 销毁后无法再次启动和销毁
      */
     public synchronized void destroy() {
         if (status == -1) {
-            throw new IllegalStateException();
+            throw new IllegalStateException("Tftp-server state must not be -1");
         }
         status = -1;
         boos.stop();

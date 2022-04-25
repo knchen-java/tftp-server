@@ -1,12 +1,13 @@
 package com.knchen.tftp.server.store;
 
-import com.knchen.tftp.server.packet.TFTPErrorCode;
-import com.knchen.tftp.server.packet.TFTPPacket;
-import com.knchen.tftp.server.packet.TFTPPacketException;
+import java.net.InetSocketAddress;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.InetSocketAddress;
+import com.knchen.tftp.server.packet.TFTPErrorCode;
+import com.knchen.tftp.server.packet.TFTPPacket;
+import com.knchen.tftp.server.packet.TFTPPacketException;
 
 /**
  * 抽象 tftp 数据仓
@@ -27,7 +28,7 @@ public abstract class AbstractTFTPStore implements TFTPStore {
     public TFTPErrorCode check(InetSocketAddress remote, String fileName, int type) {
         // 检查仓库的读写权限
         if (mode != TFTPStoreMode.READ_AND_WRITE && mode.getType() != type) {
-            LOG.warn("illegal TFTP operation, operation={}, fileName={}", type, fileName);
+            LOG.warn("Illegal TFTP operation, operation={}, fileName={}", type, fileName);
             return TFTPErrorCode.ILLEGAL_OPERATION;
         }
 
@@ -47,16 +48,16 @@ public abstract class AbstractTFTPStore implements TFTPStore {
             case TFTPPacket.WRITE_REQUEST:
                 return TFTPRequest.WRITE;
             default:
-                throw new TFTPPacketException("bad tftp packet, it's not a request packet, type=" + type);
+                throw new TFTPPacketException("Bad tftp packet, it's not a request packet, type=" + type);
         }
     }
 
     /**
      * 校验请求合法性
      *
-     * @param remote   对端地址
+     * @param remote 对端地址
      * @param fileName 文件名
-     * @param request  请求类型
+     * @param request 请求类型
      * @return 校验结果
      */
     public abstract TFTPErrorCode check0(InetSocketAddress remote, String fileName, TFTPRequest request);

@@ -3,15 +3,16 @@ package com.knchen.tftp.server.transfer;
 import com.knchen.tftp.server.packet.TFTPPacket;
 import com.knchen.tftp.server.packet.TFTPRequestPacket;
 import com.knchen.tftp.server.store.TFTPStore;
+
 import io.netty.channel.Channel;
 import io.netty.util.AttributeKey;
 
 /**
  * tftp 数据传输
  *
- * @param <open>    read/write
+ * @param <open> read/write
  * @param <receive> 接收的tftp包类型
- * @param <send>    发送的tftp类型
+ * @param <send> 发送的tftp类型
  * @author knchen
  * @since 2021/10/31
  */
@@ -25,7 +26,7 @@ public interface TFTPTransfer<open extends TFTPRequestPacket, receive extends TF
      * 开启传输通道
      *
      * @param channel 通道
-     * @param packet  请求包，read/write
+     * @param packet 请求包，read/write
      */
     void open(Channel channel, open packet);
 

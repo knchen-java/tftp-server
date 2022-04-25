@@ -1,17 +1,15 @@
 package com.knchen.tftp.server.handler;
 
+import java.util.concurrent.TimeUnit;
+
 import com.knchen.tftp.server.transfer.TFTPTransfer;
+
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.handler.timeout.IdleStateHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.concurrent.TimeUnit;
 
 /**
- * tftp 超时控制
- * IdleStateHandler 不能共享
+ * tftp 超时控制 IdleStateHandler 不能共享
  *
  * @author knchen
  * @date 2021/11/3 16:45

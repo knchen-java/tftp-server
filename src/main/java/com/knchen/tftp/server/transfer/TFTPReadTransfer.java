@@ -1,13 +1,14 @@
 package com.knchen.tftp.server.transfer;
 
+import java.net.InetSocketAddress;
+
 import com.knchen.tftp.server.packet.TFTPAckPacket;
 import com.knchen.tftp.server.packet.TFTPDataPacket;
 import com.knchen.tftp.server.packet.TFTPPacket;
 import com.knchen.tftp.server.packet.TFTPReadRequestPacket;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-
-import java.net.InetSocketAddress;
 
 /**
  * tftp 读传输
